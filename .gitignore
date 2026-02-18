@@ -1,0 +1,64 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Type checking / linting
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+.cache
+
+# =========================
+# Virtual envs + secrets
+# =========================
+.venv/
+venv/
+env/
+ENV/
+.env
+.envrc
+
+# =========================
+# Jupyter / notebooks
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDEs / editors
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# OS cruft
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Project-specific
+# =========================
+tmp
+
+# Optional: local PyPI creds (uncomment if you ever create it)
+# .pypirc

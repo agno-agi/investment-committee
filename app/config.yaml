@@ -1,0 +1,62 @@
+chat:
+  quick_prompts:
+    # Individual Agents
+    market-analyst:
+      - "What's the current market environment for tech stocks?"
+      - "Assess the macro outlook for semiconductors"
+      - "What's the latest news on NVIDIA?"
+
+    financial-analyst:
+      - "Analyze Apple's fundamentals"
+      - "Compare MSFT and GOOGL valuations"
+      - "What do analysts think about TSLA?"
+
+    technical-analyst:
+      - "Is NVDA in a bullish or bearish trend?"
+      - "What are the key support levels for AAPL?"
+      - "Show me TSLA's technical indicators"
+
+    risk-officer:
+      - "What's the risk profile of NVDA at a $2M position?"
+      - "How much portfolio risk does adding META create?"
+      - "What's the maximum drawdown scenario for TSLA?"
+
+    knowledge-agent:
+      - "What does our research say about NVIDIA?"
+      - "Pull up our semiconductor sector analysis"
+      - "What past memos do we have on file?"
+
+    memo-writer:
+      - "Write an investment memo for NVIDIA"
+      - "Draft a portfolio allocation memo for our top 5 picks"
+
+    committee-chair:
+      - "Should we invest in NVIDIA? Give me a final decision."
+      - "How should we allocate $3M across AI stocks?"
+
+    # Teams
+    coordinate-team:
+      - "Should we invest in NVIDIA?"
+      - "Evaluate Microsoft for a $2M allocation"
+      - "Is now a good time to add tech exposure?"
+
+    route-team:
+      - "What's AAPL's P/E ratio?"
+      - "What does our research say about Tesla?"
+      - "Write a memo on our MSFT position"
+
+    broadcast-team:
+      - "Full committee review: evaluate TSLA for $2M"
+      - "All analysts: assess NVDA for our portfolio"
+      - "Committee vote: should we invest in META?"
+
+    task-team:
+      - "Deploy $10M across the top 5 AI stocks"
+      - "Build a diversified tech portfolio under $5M"
+      - "Rebalance our portfolio to reduce risk"
+
+    # Workflows
+    investment-workflow:
+      - "Run full investment review on NVIDIA"
+      - "Process AAPL through the investment pipeline"
+      - "Standard review: evaluate GOOGL for purchase"
