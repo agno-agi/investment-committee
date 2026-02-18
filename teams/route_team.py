@@ -1,3 +1,11 @@
+"""
+Route Team
+----------
+
+Routes each question to exactly one specialist.
+Best for: quick, targeted questions.
+"""
+
 from agno.models.anthropic import Claude
 from agno.team import Team, TeamMode
 

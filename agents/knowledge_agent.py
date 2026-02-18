@@ -5,9 +5,6 @@ Knowledge Agent
 Committee librarian with two retrieval modes:
 - Research Library (vector search / RAG) for company and sector research
 - Memo Archive (file navigation) for past investment memos
-
-Run standalone to load research documents:
-    python -m agents.knowledge_agent
 """
 
 from agno.agent import Agent
@@ -81,13 +78,3 @@ knowledge_agent = Agent(
     markdown=True,
     enable_agentic_memory=True,
 )
-
-if __name__ == "__main__":
-    from pathlib import Path
-
-    research_dir = Path(__file__).parent.parent / "research"
-    for subdir in ["companies", "sectors"]:
-        path = research_dir / subdir
-        if path.exists():
-            committee_knowledge.insert(name=f"research-{subdir}", path=str(path), skip_if_exists=True)
-    print("Research library loaded.")

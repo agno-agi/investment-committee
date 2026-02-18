@@ -1,6 +1,6 @@
 # Agentic Investment Committee
 
-A multi-agent investment committee built with [Agno](https://docs.agno.com) that demonstrates 5 multi-agent architectures working together to evaluate stocks, manage risk, and make portfolio decisions.
+An AI investment committee built with [Agno](https://docs.agno.com) that demonstrates 5 multi-agent architectures working together to evaluate stocks, manage risk, and make portfolio decisions.
 
 7 specialist agents collaborate through 4 team configurations and a deterministic workflow — all backed by a three-layer knowledge system and institutional learning.
 
@@ -45,6 +45,9 @@ cd investment-committee
 
 cp example.env .env
 # Edit .env and add your API keys
+# ANTHROPIC_API_KEY=sk-ant-***
+# OPENAI_API_KEY=sk-***
+# EXA_API_KEY=*** # Optional -- Exa MCP is free (thank you!)
 ```
 
 ### 2. Start services
@@ -53,9 +56,17 @@ cp example.env .env
 docker compose up -d --build
 ```
 
-This starts PostgreSQL (with pgvector) and the API server. Research documents are automatically loaded into the vector database on first startup.
+This starts PostgreSQL (with pgvector) and the API server.
 
-### 3. Connect the UI
+### 3. Load research into the knowledge base
+
+```sh
+docker exec -it aic-api python -m app.load_knowledge
+```
+
+This loads company profiles and sector analyses into PgVector for RAG search. Only needs to run once — documents are skipped if they already exist.
+
+### 4. Connect the UI
 
 1. Open [os.agno.com](https://os.agno.com) and sign in
 2. Click **Add OS** → **Local** → enter `http://localhost:8000`
@@ -172,6 +183,36 @@ investment-committee/
 └── requirements.txt
 ```
 
+## Deploy to Railway
+
+```sh
+railway login
+
+./scripts/railway_up.sh
+```
+
+### Production Operations
+
+**Load research into knowledge base:**
+```sh
+railway run python -m app.load_knowledge
+```
+
+**View logs:**
+```sh
+railway logs --service investment-committee
+```
+
+**Redeploy after changes:**
+```sh
+railway up --service investment-committee -d
+```
+
+**Open dashboard:**
+```sh
+railway open
+```
+
 ## Local Development
 
 ```sh
@@ -183,7 +224,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 source .venv/bin/activate
 
 # Start PostgreSQL (required)
-docker compose up -d agentos-db
+docker compose up -d aic-db
+
+# Load research
+python -m app.load_knowledge
 
 # Run the app
 python -m app.main
@@ -197,12 +241,11 @@ source .venv/bin/activate
 ./scripts/validate.sh    # ruff check + mypy
 ```
 
-### Load research manually
-
-Research is auto-loaded on startup, but you can also load it standalone:
+### Load research
 
 ```sh
-docker exec -it agentos-api python -m agents.knowledge_agent
+python -m app.load_knowledge            # Upsert (skip existing)
+python -m app.load_knowledge --recreate # Drop and reload all
 ```
 
 ### Add dependencies
@@ -228,6 +271,7 @@ docker exec -it agentos-api python -m agents.knowledge_agent
 
 ## Learn More
 
+- [Agno Github](https://github.com/agno-agi/agno)
 - [Agno Documentation](https://docs.agno.com)
 - [AgentOS Documentation](https://docs.agno.com/agent-os/introduction)
 - [Multi-Agent Teams](https://docs.agno.com/teams)

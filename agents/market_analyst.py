@@ -1,3 +1,11 @@
+"""
+Market Analyst
+--------------
+
+Macro environment, sector trends, and breaking news.
+Tools: Exa MCP (web search) + YFinance (market data).
+"""
+
 from os import getenv
 
 from agno.agent import Agent

@@ -1,3 +1,11 @@
+"""
+Investment Workflow
+------------------
+
+Deterministic 5-step pipeline: Market → Financial+Technical (parallel) → Risk → Memo → Chair.
+Best for: standardized, auditable investment reviews.
+"""
+
 from agno.workflow import Parallel, Step, Workflow
 
 from agents import (

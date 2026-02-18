@@ -54,7 +54,7 @@ fi
 
 echo -e "${BOLD}Initializing project...${NC}"
 echo ""
-railway init -n "agent-os"
+railway init -n "investment-committee"
 
 echo ""
 echo -e "${BOLD}Deploying PgVector database...${NC}"
@@ -68,7 +68,7 @@ sleep 10
 echo ""
 echo -e "${BOLD}Creating application service...${NC}"
 echo ""
-railway add --service agent-os \
+railway add --service investment-committee \
     --variables 'DB_USER=${{pgvector.PGUSER}}' \
     --variables 'DB_PASS=${{pgvector.PGPASSWORD}}' \
     --variables 'DB_HOST=${{pgvector.PGHOST}}' \
@@ -77,19 +77,21 @@ railway add --service agent-os \
     --variables "DB_DRIVER=postgresql+psycopg" \
     --variables "WAIT_FOR_DB=True" \
     --variables "OPENAI_API_KEY=${OPENAI_API_KEY}" \
+    --variables "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}" \
+    --variables "EXA_API_KEY=${EXA_API_KEY}" \
     --variables "PORT=8000"
 
 echo ""
 echo -e "${BOLD}Deploying application...${NC}"
 echo ""
-railway up --service agent-os -d
+railway up --service investment-committee -d
 
 echo ""
 echo -e "${BOLD}Creating domain...${NC}"
 echo ""
-railway domain --service agent-os
+railway domain --service investment-committee
 
 echo ""
 echo -e "${BOLD}Done.${NC} Domain may take ~5 minutes."
-echo -e "${DIM}Logs: railway logs --service agent-os${NC}"
+echo -e "${DIM}Logs: railway logs --service investment-committee${NC}"
 echo ""

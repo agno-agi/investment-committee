@@ -1,3 +1,11 @@
+"""
+Memo Writer
+-----------
+
+Synthesizes analyst inputs into formal investment memos.
+Tools: FileTools (read + save to memos/).
+"""
+
 from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.tools.file import FileTools

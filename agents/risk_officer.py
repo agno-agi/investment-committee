@@ -1,3 +1,11 @@
+"""
+Risk Officer
+------------
+
+Downside scenarios, position sizing, and mandate compliance.
+Tools: YFinance.
+"""
+
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude

@@ -1,3 +1,11 @@
+"""
+Financial Analyst
+-----------------
+
+Fundamentals, valuation, and balance sheet analysis.
+Tools: YFinance.
+"""
+
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude

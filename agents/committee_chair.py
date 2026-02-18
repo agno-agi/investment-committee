@@ -1,6 +1,16 @@
+"""
+Committee Chair
+---------------
+
+Final decision-maker and capital allocator.
+Model: Opus 4.6. Tools: None.
+"""
+
 from agno.agent import Agent
+from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude
 
+from agents.settings import committee_knowledge, committee_learnings
 from context import COMMITTEE_CONTEXT
 from db import get_postgres_db
 
@@ -49,6 +59,15 @@ committee_chair = Agent(
     model=Claude(id="claude-opus-4-6"),
     db=agent_db,
     instructions=instructions,
+    knowledge=committee_knowledge,
+    search_knowledge=True,
+    learning=LearningMachine(
+        knowledge=committee_learnings,
+        learned_knowledge=LearnedKnowledgeConfig(
+            mode=LearningMode.AGENTIC,
+            namespace="global",
+        ),
+    ),
     add_datetime_to_context=True,
     add_history_to_context=True,
     num_history_runs=5,

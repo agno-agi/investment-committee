@@ -50,7 +50,8 @@ Committee Chair and team leaders use:
 
 | File | Purpose |
 |------|---------|
-| `app/main.py` | AgentOS entry point, registers all agents/teams/workflows, loads research |
+| `app/main.py` | AgentOS entry point, registers all agents/teams/workflows |
+| `app/load_knowledge.py` | Loads research documents into PgVector (run once) |
 | `app/config.yaml` | Quick prompts for each agent, team, and workflow |
 | `agents/settings.py` | Shared instances: knowledge, learnings, paths, URLs |
 | `agents/market_analyst.py` | Market Analyst — Exa MCP + YFinance |
@@ -201,8 +202,9 @@ source .venv/bin/activate
 # Local development with Docker
 docker compose up -d --build
 
-# Load research documents (standalone)
-python -m agents.knowledge_agent
+# Load research into knowledge base
+python -m app.load_knowledge
+python -m app.load_knowledge --recreate  # Drop and reload
 
 # Format & validation
 ./scripts/format.sh

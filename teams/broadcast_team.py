@@ -1,3 +1,11 @@
+"""
+Broadcast Team
+--------------
+
+All four analysts evaluate simultaneously, then Chair synthesizes.
+Best for: high-stakes allocation decisions.
+"""
+
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude
 from agno.team import Team, TeamMode

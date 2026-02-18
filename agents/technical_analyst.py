@@ -1,3 +1,11 @@
+"""
+Technical Analyst
+-----------------
+
+Price action, momentum indicators, and entry/exit timing.
+Tools: YFinance.
+"""
+
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude

@@ -1,3 +1,11 @@
+"""
+Coordinate Team
+---------------
+
+Chair (Opus) dynamically orchestrates analysts based on the question.
+Best for: open-ended investment questions.
+"""
+
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude
 from agno.team import Team, TeamMode

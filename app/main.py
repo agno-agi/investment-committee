@@ -22,25 +22,18 @@ from agents import (
     risk_officer,
     technical_analyst,
 )
-from agents.settings import committee_knowledge
+from db import get_postgres_db
 from teams import broadcast_team, coordinate_team, route_team, task_team
 from workflows import investment_workflow
-
-# ---------------------------------------------------------------------------
-# Load research library into vector DB at startup
-# ---------------------------------------------------------------------------
-research_dir = Path(__file__).parent.parent / "research"
-for subdir in ["companies", "sectors"]:
-    path = research_dir / subdir
-    if path.exists():
-        committee_knowledge.insert(name=f"research-{subdir}", path=str(path), skip_if_exists=True)
 
 # ---------------------------------------------------------------------------
 # Create AgentOS
 # ---------------------------------------------------------------------------
 agent_os = AgentOS(
     name="Agentic Investment Committee",
-    description="A multi-agent investment committee demonstrating 5 architectures",
+    tracing=True,
+    scheduler=True,
+    db=get_postgres_db(),
     agents=[
         market_analyst,
         financial_analyst,
@@ -52,7 +45,7 @@ agent_os = AgentOS(
     ],
     teams=[coordinate_team, route_team, broadcast_team, task_team],
     workflows=[investment_workflow],
-    config="app/config.yaml",
+    config=str(Path(__file__).parent / "config.yaml"),
 )
 
 app = agent_os.get_app()

@@ -1,3 +1,11 @@
+"""
+Agent Settings
+--------------
+
+Shared instances used across all agents: knowledge bases, paths, and URLs.
+Import from here — never recreate these.
+"""
+
 from os import getenv
 from pathlib import Path
 

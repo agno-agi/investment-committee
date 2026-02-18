@@ -1,3 +1,11 @@
+"""
+Task Team
+---------
+
+Chair autonomously decomposes complex tasks with dependencies.
+Best for: multi-step portfolio construction and analysis.
+"""
+
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
 from agno.models.anthropic import Claude
 from agno.team import Team, TeamMode
