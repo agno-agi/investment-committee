@@ -23,8 +23,8 @@ investment_workflow = Workflow(
     steps=[
         Step(name="Market Assessment", agent=market_analyst),
         Parallel(
-            Step(name="Fundamental Analysis", agent=financial_analyst),
-            Step(name="Technical Analysis", agent=technical_analyst),
+            Step(name="Fundamental Analysis", agent=financial_analyst), # type: ignore[arg-type]
+            Step(name="Technical Analysis", agent=technical_analyst), # type: ignore[arg-type]
             name="Deep Dive",
         ),
         Step(name="Risk Assessment", agent=risk_officer),
