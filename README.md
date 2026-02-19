@@ -40,7 +40,7 @@ AgentOS
 ### 1. Clone and configure
 
 ```sh
-git clone <repo-url> investment-committee
+git clone https://github.com/agno-agi/investment-committee.git investment-committee
 cd investment-committee
 
 cp example.env .env
