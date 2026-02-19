@@ -10,18 +10,18 @@ from os import getenv
 
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 from agno.tools.mcp import MCPTools
 from agno.tools.yfinance import YFinanceTools
 
-from agents.settings import EXA_MCP_URL, committee_knowledge, committee_learnings
+from agents.settings import EXA_MCP_URL, team_knowledge, team_learnings
 from context import COMMITTEE_CONTEXT
 from db import get_postgres_db
 
 agent_db = get_postgres_db()
 
 instructions = f"""\
-You are the Market Analyst on a $10M investment committee.
+You are the Market Analyst on a $10M investment team.
 
 ## Committee Rules (ALWAYS FOLLOW)
 
@@ -59,14 +59,14 @@ if getenv("PARALLEL_API_KEY"):
 market_analyst = Agent(
     id="market-analyst",
     name="Market Analyst",
-    model=Claude(id="claude-sonnet-4-6"),
+    model=Gemini(id="gemini-3-flash-preview"),
     db=agent_db,
     instructions=instructions,
     tools=tools,
-    knowledge=committee_knowledge,
+    knowledge=team_knowledge,
     search_knowledge=True,
     learning=LearningMachine(
-        knowledge=committee_learnings,
+        knowledge=team_learnings,
         learned_knowledge=LearnedKnowledgeConfig(
             mode=LearningMode.AGENTIC,
             namespace="global",

@@ -3,21 +3,21 @@ Committee Chair
 ---------------
 
 Final decision-maker and capital allocator.
-Model: Opus 4.6. Tools: None.
+Model: Gemini 3.1 Pro. Tools: None.
 """
 
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 
-from agents.settings import committee_knowledge, committee_learnings
+from agents.settings import team_knowledge, team_learnings
 from context import COMMITTEE_CONTEXT
 from db import get_postgres_db
 
 agent_db = get_postgres_db()
 
 instructions = f"""\
-You are the Committee Chair of a $10M investment committee.
+You are the Committee Chair of a $10M investment team.
 
 ## Committee Rules (ALWAYS FOLLOW)
 
@@ -56,13 +56,13 @@ from all analysts into clear, actionable decisions.
 committee_chair = Agent(
     id="committee-chair",
     name="Committee Chair",
-    model=Claude(id="claude-opus-4-6"),
+    model=Gemini(id="gemini-3.1-pro-preview"),
     db=agent_db,
     instructions=instructions,
-    knowledge=committee_knowledge,
+    knowledge=team_knowledge,
     search_knowledge=True,
     learning=LearningMachine(
-        knowledge=committee_learnings,
+        knowledge=team_learnings,
         learned_knowledge=LearnedKnowledgeConfig(
             mode=LearningMode.AGENTIC,
             namespace="global",

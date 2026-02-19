@@ -1,6 +1,6 @@
-# Agentic Investment Committee
+# Agentic Investment Team
 
-An AI investment committee built with [Agno](https://docs.agno.com) that demonstrates 5 multi-agent architectures working together to evaluate stocks, manage risk, and make portfolio decisions.
+An AI investment team built with [Agno](https://docs.agno.com) that demonstrates 5 multi-agent architectures working together to evaluate stocks, manage risk, and make portfolio decisions.
 
 7 specialist agents collaborate through 4 team configurations and a deterministic workflow — all backed by a three-layer knowledge system and institutional learning.
 
@@ -15,7 +15,7 @@ AgentOS
 │   ├── Risk Officer          ── YFinance + mandate enforcement
 │   ├── Knowledge Agent       ── RAG search + memo file navigation
 │   ├── Memo Writer           ── Writes investment memos to disk
-│   └── Committee Chair       ── Final decision-maker (Opus 4.6)
+│   └── Committee Chair       ── Final decision-maker (Gemini 3.1 Pro)
 │
 ├── Teams (4)
 │   ├── Coordinate Team       ── Dynamic multi-agent orchestration
@@ -40,13 +40,12 @@ AgentOS
 ### 1. Clone and configure
 
 ```sh
-git clone https://github.com/agno-agi/investment-committee.git investment-committee
-cd investment-committee
+git clone https://github.com/agno-agi/investment-team.git investment-team
+cd investment-team
 
 cp example.env .env
 # Edit .env and add your API keys
-# ANTHROPIC_API_KEY=sk-ant-***
-# OPENAI_API_KEY=sk-***
+# GOOGLE_API_KEY=***
 # EXA_API_KEY=*** # Optional -- Exa MCP is free (thank you!)
 ```
 
@@ -61,7 +60,7 @@ This starts PostgreSQL (with pgvector) and the API server.
 ### 3. Load research into the knowledge base
 
 ```sh
-docker exec -it aic-api python -m app.load_knowledge
+docker exec -it investment-team-api python -m app.load_knowledge
 ```
 
 This loads company profiles and sector analyses into PgVector for RAG search. Only needs to run once — documents are skipped if they already exist.
@@ -110,13 +109,13 @@ What does our research say about semiconductors?
 
 | Agent | Model | Tools | Purpose |
 |-------|-------|-------|---------|
-| Market Analyst | Claude Sonnet 4.6 | Exa MCP, YFinance | Macro environment, news, market conditions |
-| Financial Analyst | Claude Sonnet 4.6 | YFinance | Valuation, fundamentals, analyst estimates |
-| Technical Analyst | Claude Sonnet 4.6 | YFinance | Price action, indicators, support/resistance |
-| Risk Officer | Claude Sonnet 4.6 | YFinance | Position sizing, mandate compliance, risk limits |
-| Knowledge Agent | Claude Sonnet 4.6 | FileTools (read-only) | RAG over research library + memo file browsing |
-| Memo Writer | Claude Sonnet 4.6 | FileTools (read/write) | Drafts and saves standardized investment memos |
-| Committee Chair | Claude Opus 4.6 | None | Final BUY/HOLD/PASS decisions with conviction scores |
+| Market Analyst | Gemini 3 Flash | Exa MCP, YFinance | Macro environment, news, market conditions |
+| Financial Analyst | Gemini 3 Flash | YFinance | Valuation, fundamentals, analyst estimates |
+| Technical Analyst | Gemini 3 Flash | YFinance | Price action, indicators, support/resistance |
+| Risk Officer | Gemini 3 Flash | YFinance | Position sizing, mandate compliance, risk limits |
+| Knowledge Agent | Gemini 3 Flash | FileTools (read-only) | RAG over research library + memo file browsing |
+| Memo Writer | Gemini 3 Flash | FileTools (read/write) | Drafts and saves standardized investment memos |
+| Committee Chair | Gemini 3.1 Pro | None | Final BUY/HOLD/PASS decisions with conviction scores |
 
 ## Teams
 
@@ -142,7 +141,7 @@ Each step's output feeds into the next, producing a complete investment memo wit
 ## Project Structure
 
 ```
-investment-committee/
+investment-team/
 ├── agents/                     # 7 specialist agents
 │   ├── settings.py             # Shared knowledge instances (import, never recreate)
 │   ├── market_analyst.py
@@ -200,12 +199,12 @@ railway run python -m app.load_knowledge
 
 **View logs:**
 ```sh
-railway logs --service investment-committee
+railway logs --service investment-team
 ```
 
 **Redeploy after changes:**
 ```sh
-railway up --service investment-committee -d
+railway up --service investment-team -d
 ```
 
 **Open dashboard:**
@@ -224,7 +223,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 source .venv/bin/activate
 
 # Start PostgreSQL (required)
-docker compose up -d aic-db
+docker compose up -d investment-team-db
 
 # Load research
 python -m app.load_knowledge
@@ -258,8 +257,7 @@ python -m app.load_knowledge --recreate # Drop and reload all
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | Yes | — | Claude models for all agents |
-| `OPENAI_API_KEY` | Yes | — | Embeddings (text-embedding-3-small) |
+| `GOOGLE_API_KEY` | Yes | — | Gemini models + embeddings |
 | `EXA_API_KEY` | Yes | — | Web search for Market Analyst |
 | `PARALLEL_API_KEY` | No | — | ParallelTools for Market Analyst |
 | `RUNTIME_ENV` | No | `prd` | Set to `dev` for auto-reload |

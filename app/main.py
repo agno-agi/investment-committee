@@ -1,8 +1,8 @@
 """
-Agentic Investment Committee
+Agentic Investment Team
 -----------------------------
 
-A multi-agent investment committee demonstrating 5 architectures.
+A multi-agent investment team demonstrating 5 architectures.
 
 Run:
     python -m app.main
@@ -30,7 +30,7 @@ from workflows import investment_workflow
 # Create AgentOS
 # ---------------------------------------------------------------------------
 agent_os = AgentOS(
-    name="Agentic Investment Committee",
+    name="Agentic Investment Team",
     tracing=True,
     scheduler=True,
     db=get_postgres_db(),

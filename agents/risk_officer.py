@@ -8,17 +8,17 @@ Tools: YFinance.
 
 from agno.agent import Agent
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 from agno.tools.yfinance import YFinanceTools
 
-from agents.settings import committee_knowledge, committee_learnings
+from agents.settings import team_knowledge, team_learnings
 from context import COMMITTEE_CONTEXT
 from db import get_postgres_db
 
 agent_db = get_postgres_db()
 
 instructions = f"""\
-You are the Risk Officer on a $10M investment committee.
+You are the Risk Officer on a $10M investment team.
 
 ## Committee Rules (ALWAYS FOLLOW)
 
@@ -59,14 +59,14 @@ sizing. Risk limits are in your system prompt above — always enforce them.
 risk_officer = Agent(
     id="risk-officer",
     name="Risk Officer",
-    model=Claude(id="claude-sonnet-4-6"),
+    model=Gemini(id="gemini-3-flash-preview"),
     db=agent_db,
     instructions=instructions,
     tools=[YFinanceTools()],
-    knowledge=committee_knowledge,
+    knowledge=team_knowledge,
     search_knowledge=True,
     learning=LearningMachine(
-        knowledge=committee_learnings,
+        knowledge=team_learnings,
         learned_knowledge=LearnedKnowledgeConfig(
             mode=LearningMode.AGENTIC,
             namespace="global",

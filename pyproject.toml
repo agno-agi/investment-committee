@@ -1,5 +1,5 @@
 [project]
-name = "investment-committee"
+name = "investment-team"
 version = "1.0.0"
 requires-python = ">=3.12,<4"
 readme = "README.md"
@@ -8,10 +8,9 @@ authors = [{ name = "Agno", email = "hello@agno.com" }]
 
 dependencies = [
   "agno",
-  "anthropic",
   "fastapi[standard]",
+  "google-genai",
   "mcp",
-  "openai",
   "pgvector",
   "psycopg[binary]",
   "sqlalchemy",
@@ -44,7 +43,7 @@ plugins = ["pydantic.mypy"]
 exclude = [".venv*"]
 
 [[tool.mypy.overrides]]
-module = ["pgvector.*", "setuptools.*", "agno.*", "httpx.*", "yfinance.*"]
+module = ["pgvector.*", "setuptools.*", "agno.*", "httpx.*", "yfinance.*", "google.*"]
 ignore_missing_imports = true
 
 [tool.uv.pip]

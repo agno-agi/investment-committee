@@ -2,24 +2,24 @@
 Knowledge Agent
 ---------------
 
-Committee librarian with two retrieval modes:
+Team librarian with two retrieval modes:
 - Research Library (vector search / RAG) for company and sector research
 - Memo Archive (file navigation) for past investment memos
 """
 
 from agno.agent import Agent
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 from agno.tools.file import FileTools
 
-from agents.settings import MEMOS_DIR, committee_knowledge
+from agents.settings import MEMOS_DIR, team_knowledge
 from context import COMMITTEE_CONTEXT
 from db import get_postgres_db
 
 agent_db = get_postgres_db()
 
 instructions = f"""\
-You are the Knowledge Agent on a $10M investment committee. You serve as the
-committee's librarian with two retrieval capabilities.
+You are the Knowledge Agent on a $10M investment team. You serve as the
+team's librarian with two retrieval capabilities.
 
 ## Committee Rules (ALWAYS FOLLOW)
 
@@ -57,7 +57,7 @@ read in full — never summarize from fragments. Good for questions like:
 knowledge_agent = Agent(
     id="knowledge-agent",
     name="Knowledge Agent",
-    model=Claude(id="claude-sonnet-4-6"),
+    model=Gemini(id="gemini-3-flash-preview"),
     db=agent_db,
     instructions=instructions,
     tools=[
@@ -70,7 +70,7 @@ knowledge_agent = Agent(
             enable_delete_file=False,
         )
     ],
-    knowledge=committee_knowledge,
+    knowledge=team_knowledge,
     search_knowledge=True,
     add_datetime_to_context=True,
     add_history_to_context=True,

@@ -1,4 +1,4 @@
-# Sample Questions — Agentic Investment Committee
+# Sample Questions — Agentic Investment Team
 
 Use these to test each architecture and agent. Questions are grouped by which agent/team/workflow they target.
 

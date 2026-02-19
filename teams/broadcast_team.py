@@ -7,7 +7,7 @@ Best for: high-stakes allocation decisions.
 """
 
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 from agno.team import Team, TeamMode
 
 from agents import (
@@ -16,13 +16,13 @@ from agents import (
     risk_officer,
     technical_analyst,
 )
-from agents.settings import committee_learnings
+from agents.settings import team_learnings
 
 broadcast_team = Team(
     id="broadcast-team",
-    name="Investment Committee - Broadcast",
+    name="Investment Team - Broadcast",
     mode=TeamMode.broadcast,
-    model=Claude(id="claude-opus-4-6"),
+    model=Gemini(id="gemini-3.1-pro-preview"),
     members=[
         market_analyst,
         financial_analyst,
@@ -38,7 +38,7 @@ broadcast_team = Team(
         "Weight the Risk Officer's concerns heavily in position sizing.",
     ],
     learning=LearningMachine(
-        knowledge=committee_learnings,
+        knowledge=team_learnings,
         learned_knowledge=LearnedKnowledgeConfig(
             mode=LearningMode.AGENTIC,
             namespace="global",

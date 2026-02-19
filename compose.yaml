@@ -1,7 +1,7 @@
 services:
-  aic-db:
+  investment-team-db:
     image: agnohq/pgvector:18
-    container_name: aic-db
+    container_name: investment-team-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER:-ai}
@@ -12,14 +12,14 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - aic
+      - investment-team
 
-  aic-api:
+  investment-team-api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ${IMAGE_NAME:-agno-aic}:${IMAGE_TAG:-latest}
-    container_name: aic-api
+    image: ${IMAGE_NAME:-agno-investment-team}:${IMAGE_TAG:-latest}
+    container_name: investment-team-api
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     restart: unless-stopped
     ports:
@@ -32,7 +32,7 @@ services:
       - AGNO_DEBUG=True
       - PYTHONPATH=/app
       # Database
-      - DB_HOST=aic-db
+      - DB_HOST=investment-team-db
       - DB_PORT=5432
       - DB_USER=${DB_USER:-ai}
       - DB_PASS=${DB_PASS:-ai}
@@ -40,19 +40,18 @@ services:
       - WAIT_FOR_DB=True
       - PRINT_ENV_ON_LOAD=True
       # API keys
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - EXA_API_KEY=${EXA_API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - PARALLEL_API_KEY=${PARALLEL_API_KEY:-}
     depends_on:
-      - aic-db
+      - investment-team-db
     networks:
-      - aic
+      - investment-team
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
 networks:
-  aic:
+  investment-team:
 
 volumes:
   pgdata:

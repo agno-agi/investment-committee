@@ -20,13 +20,13 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    from agents.settings import committee_knowledge
+    from agents.settings import team_knowledge
 
     if args.recreate:
         print("Recreating knowledge base (dropping existing data)...\n")
-        if committee_knowledge.vector_db:
-            committee_knowledge.vector_db.drop()
-            committee_knowledge.vector_db.create()
+        if team_knowledge.vector_db:
+            team_knowledge.vector_db.drop()
+            team_knowledge.vector_db.create()
 
     print(f"Loading research from: {RESEARCH_DIR}\n")
 
@@ -40,6 +40,6 @@ if __name__ == "__main__":
         print(f"  {subdir}/: {len(files)} files")
 
         if files:
-            committee_knowledge.insert(name=f"research-{subdir}", path=str(path), skip_if_exists=True)
+            team_knowledge.insert(name=f"research-{subdir}", path=str(path), skip_if_exists=True)
 
     print("\nDone!")
