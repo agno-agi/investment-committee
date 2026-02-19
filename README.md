@@ -1,8 +1,6 @@
-# Agentic Investment Team
+# Multi-Agent Investment Team
 
-An AI investment team built with [Agno](https://docs.agno.com) that demonstrates 5 multi-agent architectures working together to evaluate stocks, manage risk, and make portfolio decisions.
-
-7 specialist agents collaborate through 4 team configurations and a deterministic workflow — all backed by a three-layer knowledge system and institutional learning.
+Multi-agent investment team powered by Agno and Gemini — 7 AI analysts collaborate across 5 architectures to deploy a $10M equity portfolio
 
 ## Architecture
 
