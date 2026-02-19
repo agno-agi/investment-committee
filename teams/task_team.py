@@ -7,7 +7,7 @@ Best for: multi-step portfolio construction and analysis.
 """
 
 from agno.learn import LearnedKnowledgeConfig, LearningMachine, LearningMode
-from agno.models.anthropic import Claude
+from agno.models.google import Gemini
 from agno.team import Team, TeamMode
 
 from agents import (
@@ -18,13 +18,13 @@ from agents import (
     risk_officer,
     technical_analyst,
 )
-from agents.settings import committee_learnings
+from agents.settings import team_learnings
 
 task_team = Team(
     id="task-team",
-    name="Investment Committee - Tasks",
+    name="Investment Team - Tasks",
     mode=TeamMode.tasks,
-    model=Claude(id="claude-opus-4-6"),
+    model=Gemini(id="gemini-3.1-pro-preview"),
     members=[
         market_analyst,
         financial_analyst,
@@ -41,7 +41,7 @@ task_team = Team(
         "Memo writing should be the final step after all analysis is complete.",
     ],
     learning=LearningMachine(
-        knowledge=committee_learnings,
+        knowledge=team_learnings,
         learned_knowledge=LearnedKnowledgeConfig(
             mode=LearningMode.AGENTIC,
             namespace="global",

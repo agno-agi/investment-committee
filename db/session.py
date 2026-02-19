@@ -7,12 +7,12 @@ PostgreSQL database connection for AgentOS.
 
 from agno.db.postgres import PostgresDb
 from agno.knowledge import Knowledge
-from agno.knowledge.embedder.openai import OpenAIEmbedder
+from agno.knowledge.embedder.google import GeminiEmbedder
 from agno.vectordb.pgvector import PgVector, SearchType
 
 from db.url import db_url
 
-DB_ID = "investment-committee-db"
+DB_ID = "investment-team-db"
 
 
 def get_postgres_db(contents_table: str | None = None) -> PostgresDb:
@@ -45,7 +45,7 @@ def create_knowledge(name: str, table_name: str) -> Knowledge:
             db_url=db_url,
             table_name=table_name,
             search_type=SearchType.hybrid,
-            embedder=OpenAIEmbedder(id="text-embedding-3-small"),
+            embedder=GeminiEmbedder(id="gemini-embedding-001"),
         ),
         contents_db=get_postgres_db(contents_table=f"{table_name}_contents"),
     )
